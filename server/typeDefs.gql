@@ -1,0 +1,15 @@
+type Movie {
+  id: Int!
+  title: String
+  original_title: String
+}
+
+enum MovieSort {
+  POPULARITY_DESC
+  POPULARITY_ASC
+}
+
+type Query {
+  hello: String!
+  discoverMovies(sort: MovieSort): [Movie!]!
+}
