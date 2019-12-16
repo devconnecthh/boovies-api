@@ -1,15 +1,29 @@
 type Movie {
   id: Int!
-  title: String
-  original_title: String
+  title: String!
+  original_title: String!
+  poster_path: String!
+  overview: String!
 }
 
 enum MovieSort {
   POPULARITY_DESC
   POPULARITY_ASC
+  RELEASE_DATE_ASC
+  RELEASE_DATE_DESC
+  REVENUE_ASC
+  REVENUE_DESC
+  PRIMARY_RELEASE_DATE_ASC
+  PRIMARY_RELEASE_DATE_DESC
+  ORIGINAL_TITLE_ASC
+  ORIGINAL_TITLE_DESC
+  VOTE_AVERAGE_ASC
+  VOTE_AVERAGE_DESC
+  VOTE_COUNT_ASC
+  VOTE_COUNT_DESC
 }
 
 type Query {
-  hello: String!
   discoverMovies(sort: MovieSort): [Movie!]!
+  findById(id: Int!): Movie!
 }
