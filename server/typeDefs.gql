@@ -6,6 +6,10 @@ type Movie {
   overview: String!
 }
 
+input MovieFilter {
+  year: Int
+}
+
 enum MovieSort {
   POPULARITY_DESC
   POPULARITY_ASC
@@ -24,6 +28,6 @@ enum MovieSort {
 }
 
 type Query {
-  discoverMovies(sort: MovieSort): [Movie!]!
+  discoverMovies(sort: MovieSort, filter: MovieFilter): [Movie!]!
   findById(id: Int!): Movie!
 }

@@ -28,10 +28,11 @@ function convertMovie(movie) {
 }
 
 const Query = {
-  discoverMovies: async (_, { sort }) => {
+  discoverMovies: async (_, { sort, filter = {} }) => {
     const sortBy = MOVIE_SORTINGS[sort || "POPULARITY_DESC"];
     const json = await fetchFromApi(`/discover/movie`, {
-      sort_by: sortBy
+      sort_by: sortBy,
+      primary_release_year: filter.year,
     });
     return json.results.filter(Boolean).map(convertMovie);
   },
