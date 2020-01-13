@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon --watch server --ext js,gql --exec node server",
-    "start": "node server",
+    "start": "nodemon --watch server --ext js,gql --exec node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
