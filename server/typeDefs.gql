@@ -8,6 +8,7 @@ type Movie {
 
 input MovieFilter {
   year: Int
+  genres: [String]
 }
 
 enum MovieSort {
