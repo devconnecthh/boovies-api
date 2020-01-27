@@ -4,11 +4,12 @@ type Movie {
   original_title: String!
   poster_path: String!
   overview: String!
+  genre_ids: [Int!]
 }
 
 input MovieFilter {
   year: Int
-  genres: [String]
+  genres: [String!]
 }
 
 enum MovieSort {
