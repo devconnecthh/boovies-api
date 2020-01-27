@@ -33,13 +33,17 @@ const Query = {
     const json = await fetchFromApi(`/discover/movie`, {
       sort_by: sortBy,
       primary_release_year: filter.year,
-      with_genres: filter.genres ? filter.genres.join(',') : null,
+      with_genres: filter.genres ? filter.genres.join(",") : null
     });
     return json.results.filter(Boolean).map(convertMovie);
   },
   findById: async (_, { id }) => {
     const json = await fetchFromApi(`/movie/${id}`);
-    return convertMovie(json)
+    return convertMovie(json);
+  },
+  genres: async () => {
+    const json = await fetchFromApi("/genre/movie/list");
+    return json.genres;
   }
 };
 

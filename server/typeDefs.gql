@@ -9,7 +9,7 @@ type Movie {
 
 input MovieFilter {
   year: Int
-  genres: [String!]
+  genres: [Int!]
 }
 
 enum MovieSort {
@@ -29,7 +29,13 @@ enum MovieSort {
   VOTE_COUNT_DESC
 }
 
+type MovieGenre {
+  id: Int!
+  name: String!
+}
+
 type Query {
   discoverMovies(sort: MovieSort, filter: MovieFilter): [Movie!]!
   findById(id: Int!): Movie!
+  genres: [MovieGenre!]!
 }
