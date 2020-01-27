@@ -28,7 +28,7 @@ function convertMovie(movie) {
 }
 
 const Query = {
-  discoverMovies: async (_, { sort, filter = {} }) => {
+  movies: async (_, { sort, filter = {} }) => {
     const sortBy = MOVIE_SORTINGS[sort || "POPULARITY_DESC"];
     const json = await fetchFromApi(`/discover/movie`, {
       sort_by: sortBy,
@@ -37,7 +37,7 @@ const Query = {
     });
     return json.results.filter(Boolean).map(convertMovie);
   },
-  findById: async (_, { id }) => {
+  movie: async (_, { id }) => {
     const json = await fetchFromApi(`/movie/${id}`);
     return convertMovie(json);
   },

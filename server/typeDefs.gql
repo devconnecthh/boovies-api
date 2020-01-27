@@ -35,7 +35,7 @@ type MovieGenre {
 }
 
 type Query {
-  discoverMovies(sort: MovieSort, filter: MovieFilter): [Movie!]!
-  findById(id: Int!): Movie!
+  movies(sort: MovieSort, filter: MovieFilter): [Movie!]!
+  movie(id: Int!): Movie!
   genres: [MovieGenre!]!
 }
