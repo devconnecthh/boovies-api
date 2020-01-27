@@ -5,6 +5,7 @@ type Movie {
   poster_path: String!
   overview: String!
   genre_ids: [Int!]
+  genre_names: [String!]
 }
 
 input MovieFilter {
