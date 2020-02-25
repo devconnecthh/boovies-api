@@ -23,16 +23,32 @@ const GENRES_PROMISE = fetchFromApi('/genre/movie/list').then(
   json => json.genres,
 )
 
-function convertMovie(movie) {
+function convertBaseMovie(movie) {
   return {
     ...movie,
     poster_path: `${MOVIE_URL_BASE}${movie.poster_path}`,
     backdrop_path: `${MOVIE_URL_BASE}${movie.backdrop_path}`,
-    genre_names: async () => {
-      return (await GENRES_PROMISE)
-        .filter(({ id }) => movie.genre_ids.includes(id))
-        .map(({ name }) => name)
-    },
+  }
+}
+
+function converDetailMovie(movie) {
+  return {
+    ...convertBaseMovie(movie),
+  }
+}
+
+function convertDiscoveredMovie(movie) {
+  /**
+   * movie looks like
+   * { poster_path: 'asdf', genre_ids: [123, 456, 678] }
+   */
+  return {
+    ...convertBaseMovie(movie),
+    genres: movie.genre_ids.map(genre_id => ({
+      id: genre_id,
+      name: async () =>
+        (await GENRES_PROMISE).find(({ id }) => id === genre_id).name,
+    })),
   }
 }
 
@@ -44,11 +60,11 @@ const Query = {
       primary_release_year: filter.year,
       with_genres: filter.genres ? filter.genres.join(',') : null,
     })
-    return json.results.filter(Boolean).map(convertMovie)
+    return json.results.filter(Boolean).map(convertDiscoveredMovie)
   },
   movie: async (_, { id }) => {
     const json = await fetchFromApi(`/movie/${id}`)
-    return convertMovie(json)
+    return converDetailMovie(json)
   },
   genres: async () => {
     return GENRES_PROMISE
